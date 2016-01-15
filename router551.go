@@ -26,3 +26,17 @@ func (m method) String() string {
 	}
 	return "UNKNOWN"
 }
+
+type Router struct{}
+
+var routerInstance *Router
+
+func Load() *Router {
+	if routerInstance != nil {
+		return routerInstance
+	}
+
+	routerInstance = &Router{}
+
+	return routerInstance
+}

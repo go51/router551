@@ -32,3 +32,32 @@ func TestMethod(t *testing.T) {
 		t.Errorf("HTTP メソッドが正常に定義されていません。UNKNOWN => %s", unknown.String())
 	}
 }
+
+func TestLoad(t *testing.T) {
+	r1 := router551.Load()
+	r2 := router551.Load()
+	r3 := &router551.Router{}
+
+	if r1 == nil {
+		t.Error("インスタンスの生成に失敗しました。")
+	}
+
+	if r2 == nil {
+		t.Error("インスタンスの生成に失敗しました。")
+	}
+
+	if r1 != r2 {
+		t.Error("インスタンスの生成に失敗しました。")
+	}
+
+	if r1 == r3 {
+		t.Error("インスタンスの生成に失敗しました。")
+	}
+}
+
+func BenchmarkLoad(b *testing.B) {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		_ = router551.Load()
+	}
+}
