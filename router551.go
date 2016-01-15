@@ -1,5 +1,7 @@
 package router551
 
+import "github.com/go51/container551"
+
 type method int
 
 const (
@@ -26,6 +28,8 @@ func (m method) String() string {
 	}
 	return "UNKNOWN"
 }
+
+type ActionFunc func(c *container551.Container) interface{}
 
 type Router struct{}
 
