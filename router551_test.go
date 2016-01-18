@@ -161,3 +161,62 @@ func TestAdd(t *testing.T) {
 	}
 
 }
+
+func TestFindActionByPathMatch(t *testing.T) {
+	r := router551.Load()
+	r.Add(router551.GET, "index", "/", ActionFunc)
+	r.Add(router551.POST, "top", "/top", ActionFunc)
+	r.Add(router551.PUT, "account", "/account/:account_id:", ActionFunc)
+	r.Add(router551.DELETE, "account_action", "/account/:account_id:/:action:", ActionFunc)
+	r.Add(router551.COMMAND, "command", "command:test", ActionFunc)
+	r.Add(router551.GET|router551.POST|router551.PUT|router551.DELETE, "all", "/all/:action:/detail/:no:", ActionFunc)
+
+	route := r.FindRouteByPathMatch(router551.GET, "/")
+	if route.Name() != "index" {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+	if len(route.Keys()) != 0 {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+
+	route = r.FindRouteByPathMatch(router551.POST, "/top")
+	if route.Name() != "top" {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+	if len(route.Keys()) != 0 {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+
+	route = r.FindRouteByPathMatch(router551.PUT, "/account/13")
+	if route.Name() != "account" {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+	if len(route.Keys()) != 1 {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+
+	route = r.FindRouteByPathMatch(router551.DELETE, "/account/13/get")
+	if route.Name() != "account_action" {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+	if len(route.Keys()) != 2 {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+
+	route = r.FindRouteByPathMatch(router551.COMMAND, "command:test")
+	if route.Name() != "command" {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+	if len(route.Keys()) != 0 {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+
+	route = r.FindRouteByPathMatch(router551.GET, "/all/get/detail/1")
+	if route.Name() != "all" {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+	if len(route.Keys()) != 2 {
+		t.Errorf("ルートの取得に失敗しました。")
+	}
+
+}
