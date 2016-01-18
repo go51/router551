@@ -182,7 +182,7 @@ func (r *Router) getPackageName(path string) string {
 	return packageName[1 : len(packageName)-1]
 }
 
-func (r *Router) FindActionByName(method routerMethod, name string) *route {
+func (r *Router) FindRouteByName(method routerMethod, name string) *route {
 	if method == GET {
 		return r.get[name]
 	}
