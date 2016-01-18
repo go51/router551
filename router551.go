@@ -201,3 +201,41 @@ func (r *Router) FindActionByName(method routerMethod, name string) *route {
 
 	return nil
 }
+
+func (r *Router) FindRouteByPathMatch(method routerMethod, path string) *route {
+	routes := r.getRoutes(method)
+
+	for _, route := range routes {
+		if route.pattern == path {
+			return route
+		}
+	}
+
+	for _, route := range routes {
+		if route.pattern == "/" {
+			continue
+		}
+		if route.regex.MatchString(path) {
+			return route
+		}
+	}
+
+	return nil
+}
+
+func (r *Router) getRoutes(method routerMethod) map[string]*route {
+	switch method {
+	case GET:
+		return r.get
+	case POST:
+		return r.post
+	case PUT:
+		return r.put
+	case DELETE:
+		return r.delete
+	case COMMAND:
+		return r.command
+	}
+
+	return make(map[string]*route)
+}
