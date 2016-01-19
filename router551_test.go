@@ -78,7 +78,7 @@ func TestAdd(t *testing.T) {
 	r.Add(router551.COMMAND, "command", "command:test", ActionFunc)
 	r.Add(router551.GET|router551.POST|router551.PUT|router551.DELETE, "all", "/all/:action:/detail/:no:", ActionFunc)
 
-	route := r.FindActionByName(router551.GET, "index")
+	route := r.FindRouteByName("GET", "index")
 	if route == nil {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
@@ -89,7 +89,7 @@ func TestAdd(t *testing.T) {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
 
-	route = r.FindActionByName(router551.POST, "top")
+	route = r.FindRouteByName("POST", "top")
 	if route == nil {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
@@ -100,7 +100,7 @@ func TestAdd(t *testing.T) {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
 
-	route = r.FindActionByName(router551.PUT, "account")
+	route = r.FindRouteByName("PUT", "account")
 	if route == nil {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
@@ -114,7 +114,7 @@ func TestAdd(t *testing.T) {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
 
-	route = r.FindActionByName(router551.DELETE, "account_action")
+	route = r.FindRouteByName("DELETE", "account_action")
 	if route == nil {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
@@ -131,7 +131,7 @@ func TestAdd(t *testing.T) {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
 
-	route = r.FindActionByName(router551.COMMAND, "command")
+	route = r.FindRouteByName("COMMAND", "command")
 	if route == nil {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
@@ -142,10 +142,10 @@ func TestAdd(t *testing.T) {
 		t.Errorf("ルーティングの設定が失敗しました。")
 	}
 
-	getRoute := r.FindActionByName(router551.GET, "all")
-	postRoute := r.FindActionByName(router551.POST, "all")
-	putRoute := r.FindActionByName(router551.PUT, "all")
-	deleteRoute := r.FindActionByName(router551.DELETE, "all")
+	getRoute := r.FindRouteByName("GET", "all")
+	postRoute := r.FindRouteByName("POST", "all")
+	putRoute := r.FindRouteByName("PUT", "all")
+	deleteRoute := r.FindRouteByName("DELETE", "all")
 
 	if getRoute != postRoute {
 		t.Errorf("ルーティングの設定が失敗しました。")
