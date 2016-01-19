@@ -182,20 +182,20 @@ func (r *Router) getPackageName(path string) string {
 	return packageName[1 : len(packageName)-1]
 }
 
-func (r *Router) FindRouteByName(method routerMethod, name string) *route {
-	if method == GET {
+func (r *Router) FindRouteByName(method, name string) *route {
+	if method == GET.String() {
 		return r.get[name]
 	}
-	if method == POST {
+	if method == POST.String() {
 		return r.post[name]
 	}
-	if method == PUT {
+	if method == PUT.String() {
 		return r.put[name]
 	}
-	if method == DELETE {
+	if method == DELETE.String() {
 		return r.delete[name]
 	}
-	if method == COMMAND {
+	if method == COMMAND.String() {
 		return r.command[name]
 	}
 
