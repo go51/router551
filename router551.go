@@ -202,7 +202,7 @@ func (r *Router) FindRouteByName(method, name string) *route {
 	return nil
 }
 
-func (r *Router) FindRouteByPathMatch(method routerMethod, path string) *route {
+func (r *Router) FindRouteByPathMatch(method, path string) *route {
 	routes := r.getRoutes(method)
 
 	for _, route := range routes {
@@ -223,17 +223,17 @@ func (r *Router) FindRouteByPathMatch(method routerMethod, path string) *route {
 	return nil
 }
 
-func (r *Router) getRoutes(method routerMethod) map[string]*route {
+func (r *Router) getRoutes(method string) map[string]*route {
 	switch method {
-	case GET:
+	case GET.String():
 		return r.get
-	case POST:
+	case POST.String():
 		return r.post
-	case PUT:
+	case PUT.String():
 		return r.put
-	case DELETE:
+	case DELETE.String():
 		return r.delete
-	case COMMAND:
+	case COMMAND.String():
 		return r.command
 	}
 

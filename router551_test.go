@@ -171,7 +171,7 @@ func TestFindActionByPathMatch(t *testing.T) {
 	r.Add(router551.COMMAND, "command", "command:test", ActionFunc)
 	r.Add(router551.GET|router551.POST|router551.PUT|router551.DELETE, "all", "/all/:action:/detail/:no:", ActionFunc)
 
-	route := r.FindRouteByPathMatch(router551.GET, "/")
+	route := r.FindRouteByPathMatch("GET", "/")
 	if route.Name() != "index" {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
@@ -179,7 +179,7 @@ func TestFindActionByPathMatch(t *testing.T) {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
 
-	route = r.FindRouteByPathMatch(router551.POST, "/top")
+	route = r.FindRouteByPathMatch("POST", "/top")
 	if route.Name() != "top" {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
@@ -187,7 +187,7 @@ func TestFindActionByPathMatch(t *testing.T) {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
 
-	route = r.FindRouteByPathMatch(router551.PUT, "/account/13")
+	route = r.FindRouteByPathMatch("PUT", "/account/13")
 	if route.Name() != "account" {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
@@ -195,7 +195,7 @@ func TestFindActionByPathMatch(t *testing.T) {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
 
-	route = r.FindRouteByPathMatch(router551.DELETE, "/account/13/get")
+	route = r.FindRouteByPathMatch("DELETE", "/account/13/get")
 	if route.Name() != "account_action" {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
@@ -203,7 +203,7 @@ func TestFindActionByPathMatch(t *testing.T) {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
 
-	route = r.FindRouteByPathMatch(router551.COMMAND, "command:test")
+	route = r.FindRouteByPathMatch("COMMAND", "command:test")
 	if route.Name() != "command" {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
@@ -211,7 +211,7 @@ func TestFindActionByPathMatch(t *testing.T) {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
 
-	route = r.FindRouteByPathMatch(router551.GET, "/all/get/detail/1")
+	route = r.FindRouteByPathMatch("GET", "/all/get/detail/1")
 	if route.Name() != "all" {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
