@@ -83,6 +83,10 @@ func (r *route) Action() ActionFunc {
 	return r.action
 }
 
+func (r *route) PackageName() string {
+	return r.packageName
+}
+
 func (r *Router) Add(method routerMethod, name, pattern string, action ActionFunc) {
 
 	pc, _, _, _ := runtime.Caller(1)
