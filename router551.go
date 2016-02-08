@@ -156,7 +156,8 @@ func (r *Router) getKeys(pattern string) []string {
 	keyBytes := []byte{}
 
 	for i := 0; i < len(patternBytes); i++ {
-		if patternBytes[i] == 0x3A { // 0x3A => ":"
+		if patternBytes[i] == 0x3A {
+			// 0x3A => ":"
 			if !coron {
 				keyBytes = []byte{}
 				coron = true
@@ -242,4 +243,46 @@ func (r *Router) getRoutes(method string) map[string]*route {
 	}
 
 	return make(map[string]*route)
+}
+
+func (r *Router) Url(name string, parameter ...string) string {
+
+	var route *route = nil
+
+	if r.get[name] != nil {
+		route = r.get[name]
+	} else if r.post[name] != nil {
+		route = r.post[name]
+	} else if r.put[name] != nil {
+		route = r.put[name]
+	} else if r.delete[name] != nil {
+		route = r.delete[name]
+	}
+
+	if route == nil {
+		// Not Found
+		return "#"
+	}
+
+	if len(parameter) != 0 && len(parameter) != len(route.keys) {
+		// No Match
+		return "#"
+	}
+
+	//----------------------------------------
+	// Match
+	//----------------------------------------
+	if len(parameter) == 0 {
+		// No paramter
+		return route.pattern
+	}
+
+	url := route.pattern
+	keys := route.keys
+	for i := 0; i < len(parameter); i++ {
+		url = string551.Replace(url, ":"+keys[i]+":", parameter[i])
+
+	}
+
+	return url
 }

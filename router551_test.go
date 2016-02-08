@@ -219,4 +219,20 @@ func TestFindActionByPathMatch(t *testing.T) {
 		t.Errorf("ルートの取得に失敗しました。")
 	}
 
+	url := r.Url("index")
+	if url != "/" {
+		t.Errorf("URL 生成に失敗しました。/ => %s", url)
+	}
+	url = r.Url("top")
+	if url != "/top" {
+		t.Errorf("URL 生成に失敗しました。/top => %s", url)
+	}
+	url = r.Url("account", "1")
+	if url != "/account/1" {
+		t.Errorf("URL 生成に失敗しました。/account/1 => %s", url)
+	}
+	url = r.Url("account_action", "1", "lock")
+	if url != "/account/1/lock" {
+		t.Errorf("URL 生成に失敗しました。/account/1/lock => %s", url)
+	}
 }
