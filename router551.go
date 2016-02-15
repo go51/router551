@@ -107,7 +107,7 @@ func (r *Router) Add(method routerMethod, name, pattern string, action ActionFun
 		for i := 0; i < len(route.keys); i++ {
 			regexPattern = string551.Replace(regexPattern, ":"+route.keys[i]+":", ".*")
 		}
-		route.regex = regexp.MustCompile(regexPattern)
+		route.regex = regexp.MustCompile("^" + regexPattern + "$")
 	}
 
 	if method&GET == GET {
