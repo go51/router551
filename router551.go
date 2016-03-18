@@ -4,7 +4,6 @@ import (
 	"github.com/go51/container551"
 	"github.com/go51/string551"
 	"regexp"
-	"runtime"
 )
 
 type routerMethod int
