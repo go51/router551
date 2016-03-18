@@ -87,16 +87,13 @@ func (r *route) PackageName() string {
 	return r.packageName
 }
 
-func (r *Router) Add(method routerMethod, name, pattern string, action ActionFunc) {
-
-	pc, _, _, _ := runtime.Caller(1)
-	path := runtime.FuncForPC(pc).Name()
+func (r *Router) Add(packageName string, method routerMethod, name, pattern string, action ActionFunc) {
 
 	route := &route{
 		name:        name,
 		pattern:     pattern,
 		regex:       nil,
-		packageName: r.getPackageName(path),
+		packageName: packageName,
 		action:      action,
 		keys:        []string{},
 	}
